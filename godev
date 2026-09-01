@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+IMAGE="localhost/go-estudos:1.0"
+
+if ! podman image exists "$IMAGE"; then
+    echo "Imagem $IMAGE não encontrada."
+    echo "Construindo ambiente..."
+
+    podman build \
+        -t "$IMAGE" \
+        ./ambiente-de-estudos
+fi
+
+podman run --rm -it \
+    --userns=keep-id \
+    -v "$PWD:/workspace:Z" \
+    "$IMAGE"
