@@ -1,0 +1,15 @@
+FROM golang:1.25
+
+WORKDIR /workspace
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        git \
+        bash \
+        ca-certificates \
+        build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/go/bin:${PATH}"
+
+CMD ["bash"]
